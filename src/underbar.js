@@ -102,6 +102,21 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var result = [];
+
+    _.each(array, function(arrVal){
+      var push = true;
+
+      _.each(result, function(resVal){
+        if(resVal === arrVal)
+          push = false;
+      });
+
+      if(push)
+        result.push(arrVal);
+    });
+
+    return result;
   };
 
 

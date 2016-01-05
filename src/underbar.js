@@ -38,12 +38,8 @@
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
-    if(n === undefined)
-      return array[array.length-1]
-    else if (n === 0)
-      return []
-    else 
-      return array.slice(-n)
+    console.log(array,n)
+    return n === undefined ? array[array.length-1] : array.slice(Math.max(0, array.length-n));
   };
 
   // Call iterator(value, key, collection) for each element of collection.
@@ -427,6 +423,12 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    // if(typeof functionOrKey === 'function'){
+      _.each(collection, function(val,i){
+        collection[i] = functionOrKey.apply(val, args)
+      })
+    // }
+    return collection
   };
 
   // Sort the object's values by a criterion produced by an iterator.

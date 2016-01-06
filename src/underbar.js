@@ -38,7 +38,6 @@
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
-    console.log(array,n)
     return n === undefined ? array[array.length-1] : array.slice(Math.max(0, array.length-n));
   };
 
@@ -367,12 +366,10 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
-    // if(typeof functionOrKey === 'function'){
-      _.each(collection, function(val,i){
-        collection[i] = functionOrKey.apply(val, args)
-      })
-    // }
-    return collection
+    return _.map(collection, function(item){
+      var method = typeof functionOrKey === 'string' ? item[functionOrKey] : functionOrKey;
+      return method.apply(item, args);
+    })
   };
 
   // Sort the object's values by a criterion produced by an iterator.

@@ -199,42 +199,17 @@
       return trueSoFar && iterator(value);
     }, true);
 
-
-    // if(iterator === undefined) {
-    //     return _.reduce(collection, function(acc,curr){
-    //       if(curr){
-    //         return acc
-    //       } else {
-    //         acc = false
-    //         return acc
-    //       }
-    //     }, true)
-    // } else {
-    //     return _.reduce(collection, function(acc,curr){
-    //       if(iterator(curr)){
-    //         return acc
-    //       } else {
-    //         acc = false
-    //         return acc
-    //       }
-    //     }, true)
-    // }
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
-    if(iterator === undefined)
-      iterator = _.identity;
-    return _.reduce(collection, function(acc, curr){
-      if(iterator(curr)){
-          acc = true
-          return acc
-        } else {
-          return acc
-        }
-      }, false)
+    iterator = iterator || _.identity;
+    return !!_.reduce(collection, function(trueSoFar, value){
+      return trueSoFar || iterator(value);
+    }, false);
+
   };
 
 

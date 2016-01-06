@@ -163,7 +163,8 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-    var initializing = collection.length === 2
+    
+    var initializing = arguments.length === 2
 
     _.each(collection, function(value){
       if( initializing ) {
@@ -193,25 +194,31 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
-    if(iterator === undefined) {
-        return _.reduce(collection, function(acc,curr){
-          if(curr){
-            return acc
-          } else {
-            acc = false
-            return acc
-          }
-        }, true)
-    } else {
-        return _.reduce(collection, function(acc,curr){
-          if(iterator(curr)){
-            return acc
-          } else {
-            acc = false
-            return acc
-          }
-        }, true)
-    }
+    iterator = iterator || _.identity;
+    return !!_.reduce(collection, function(trueSoFar, value){
+      return trueSoFar && iterator(value);
+    }, true);
+
+
+    // if(iterator === undefined) {
+    //     return _.reduce(collection, function(acc,curr){
+    //       if(curr){
+    //         return acc
+    //       } else {
+    //         acc = false
+    //         return acc
+    //       }
+    //     }, true)
+    // } else {
+    //     return _.reduce(collection, function(acc,curr){
+    //       if(iterator(curr)){
+    //         return acc
+    //       } else {
+    //         acc = false
+    //         return acc
+    //       }
+    //     }, true)
+    // }
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is

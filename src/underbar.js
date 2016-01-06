@@ -232,37 +232,25 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
-    var destObj = obj;
+    _.each(arguments, function(source){
+      _.each(source, function(val, key){
+        obj[key] = val;
+      });
+    });
 
-    for (var i = 1; i < arguments.length; i++){
-      var sourceObj = arguments[i]
-
-      _.each(sourceObj, function(val, key){
-        destObj[key] = val
-      })
-
-    }
-
-    return destObj
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    _.each(arguments, function(source){
+      _.each(source, function(val, key){
+        obj[key] === undefined && (obj[key] = val);
+      });
+    });
 
-    var destObj = obj;
-
-    for (var i = 1; i < arguments.length; i++){
-      var sourceObj = arguments[i]
-
-      _.each(sourceObj, function(val, key){
-        if(destObj[key] === undefined)
-          destObj[key] = val
-      })
-
-    }
-
-    return destObj
+    return obj;
 
   };
 

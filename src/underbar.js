@@ -96,21 +96,17 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
-    var result = [];
+    var unique = {}, results = [];
 
-    _.each(array, function(arrVal){
-      var push = true;
+    for (var i = 0; i < array.length; i++) {
+      unique[array[i]] = array[i];
+    }
 
-      _.each(result, function(resVal){
-        if(resVal === arrVal)
-          push = false;
-      });
+    for (var key in unique) {
+      results.push(unique[key]);
+    }
 
-      if(push)
-        result.push(arrVal);
-    });
-
-    return result;
+    return results;
   };
 
 
